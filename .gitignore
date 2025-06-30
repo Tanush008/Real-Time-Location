@@ -1,0 +1,76 @@
+# Node.js dependencies and build artifacts
+node_modules/
+/dist/
+/build/
+/out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+# Store your sensitive information here (e.g., API keys, database credentials)
+# and never commit it to version control.
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files
+*.log
+logs/ # Or whatever directory you use for logs
+
+# Operating System files
+.DS_Store # macOS
+Thumbs.db # Windows
+ehthumbs.db # Windows
+.directory # Linux
+
+# Editor/IDE specific files
+.vscode/ # VS Code settings, if not shared configuration
+.idea/ # IntelliJ IDEA / WebStorm project files
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.c9/ # Cloud9 IDE
+*.code-workspace # VS Code workspace file
+
+# Test coverage results
+/coverage/
+
+# Common temporary files or compiled outputs
+*.pid # Process ID files
+*.seed
+*.iml # IntelliJ IDEA module files
+*.class # Java compiled files (if using Java tools, though less common for pure Node.js)
+*.pyc # Python compiled files (if using Python for scripts)
+
+# Uploads or dynamically generated content
+# If your application allows file uploads, create a directory for them and ignore it.
+/uploads/
+/public/uploads/
+/files/
+
+# Database files (for local development databases)
+*.sqlite
+*.db
+*.db3
+*.s3db
+
+# Sensitive files (e.g., SSL certificates, private keys)
+*.pem
+*.key
+*.crt
+*.pfx
+
+# Production builds (if handled by a separate process)
+# Often, you don't want to commit the actual production build output
+# but rather just the source code that generates it.
+/public/build/
+/public/dist/
+
+# Other temporary or miscellaneous files
+tmp/
+temp/
