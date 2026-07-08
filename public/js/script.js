@@ -1,34 +1,50 @@
 const socket = io();
+
 if (navigator.geolocation) {
   navigator.geolocation.watchPosition(
     (position) => {
-      const { latitude, longitude } = position.coords; // FIXED
-      socket.emit("send-location", { latitude, longitude });
+      const { latitude, longitude } = position.coords;
+      socket.emit("send-location", {
+        latitude,
+        longitude,
+        timestamp: Date.now(),
+      });
     },
     (error) => {
-      console.error("Error getting location: ", error);
+      alert("Unable to fetch location");
+      console.error(error);
     },
     {
-      enableHighAccuracy: true,
+      enableHighAccuracy: false,
       maximumAge: 0,
-      timeout: 5000,
+      timeout: 10000,
     }
   );
 }
-const map = L.map("map").setView([0, 0], 16);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {}).addTo(
-  map
-);
+
+const map = L.map("map").setView([20.5937, 78.9629], 10);
+
+L.tileLayer(
+  "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+).addTo(map);
+
 const markers = {};
+
 socket.on("recieve-location", (data) => {
   const { id, latitude, longitude } = data;
-  map.setView([latitude, longitude]);
+
+  map.flyTo([latitude, longitude], 18);
+
   if (markers[id]) {
     markers[id].setLatLng([latitude, longitude]);
   } else {
-    markers[id] = L.marker([latitude, longitude]).addTo(map);
+    markers[id] = L.circleMarker([latitude, longitude], {
+      radius: 8,
+      color: "red",
+    }).addTo(map);
   }
 });
+
 socket.on("user-disconnect", (id) => {
   if (markers[id]) {
     map.removeLayer(markers[id]);
